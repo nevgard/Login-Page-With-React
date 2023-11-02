@@ -14,13 +14,15 @@ const CardProduct = (props) => {
 const Header = (props) => {
   const { image } = props;
   return (
-    <a>
-      <img
-        src={image}
-        alt=""
-        className="p-8 rounded-md w-full max-h-60 object-cover"
-      />
-    </a>
+    <>
+      <a href="#">
+        <img
+          src={image}
+          alt=""
+          className="p-8 rounded-md w-full h-60 object-cover"
+        />
+      </a>
+    </>
   );
 };
 
@@ -28,12 +30,12 @@ const Body = (props) => {
   const { children, name } = props;
   return (
     <div className="px-5 pb-5 h-full ">
-      <a>
+      <a href="#">
         <h5 className="text-white tracking-tighter text-xl font-semibold">
-          {name}
+          {name.substring(0, 100)}...
         </h5>
       </a>
-      <p className="text-md text-white">{children}</p>
+      <p className="text-md text-white">{children.substring(0, 100)}...</p>
     </div>
   );
 };
@@ -43,8 +45,8 @@ const Footer = (props) => {
   return (
     <div className="flex justify-between items-center px-5 pb-5  text-white">
       <span className="text-2xl  font-semibold">
-        Rp.{" "}
-        {price.toLocaleString("id-ID", { styles: "currency", currency: "IDR" })}
+        ${" "}
+        {price.toLocaleString("id-ID", { styles: "currency", currency: "USD" })}
       </span>
       <Button
         text="Add To Cart"
