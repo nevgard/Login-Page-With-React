@@ -2,13 +2,13 @@ import CardProduct from "../components/fragments/CardProduct";
 import Button from "../components/elements/buttons/Button";
 import { useEffect, useState, useRef } from "react";
 import { getProducts } from "../services/product.service";
-import { getUsername } from "../services/auth.service";
+import { useLogin } from "../hooks/useLogin";
 
 const ProductsPage = () => {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [products, setProducts] = useState([]);
-  const [username, setUsername] = useState("");
+  const username = useLogin();
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart")) || []);
@@ -18,16 +18,6 @@ const ProductsPage = () => {
     getProducts((data) => {
       setProducts(data);
     });
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setUsername(getUsername(token) || "");
-    } else {
-      window.location.href = "/login";
-      alert("login dlu coyy");
-    }
   }, []);
 
   useEffect(() => {
@@ -85,7 +75,7 @@ const ProductsPage = () => {
           {products.length > 0 &&
             products.map((product) => (
               <CardProduct key={product.id}>
-                <CardProduct.Header image={product.image} />
+                <CardProduct.Header image={product.image} id={product.id} />
                 <CardProduct.Body name={product.title}>
                   {product.description}
                 </CardProduct.Body>
